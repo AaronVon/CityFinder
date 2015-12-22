@@ -2,6 +2,7 @@ package com.pioneer.aaron.cityfinder.finder;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -179,15 +180,22 @@ public class Finder extends AppCompatActivity {
             locationClient = new LocationClient(Finder.this);
             locationClient.registerLocationListener(new LocationListenner());
             LocationClientOption option = new LocationClientOption();
+            option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
             option.setAddrType("all");
             option.setOpenGps(true);
-            option.setCoorType("bd09ll");
-            option.setScanSpan(2000);
+            option.setCoorType("gcj02");
+            option.setScanSpan(3000);
+            option.setIsNeedAddress(true);
+            option.setOpenGps(true);
+            option.setLocationNotify(true);
+            option.setIgnoreKillProcess(true);
+            option.setEnableSimulateGps(true);
+            option.setIsNeedLocationDescribe(true);
+            option.setIsNeedLocationPoiList(false);
             locationClient.setLocOption(option);
         }
 
         locationClient.start();
-        locationClient.requestLocation();
     }
 
     /**
@@ -196,7 +204,7 @@ public class Finder extends AppCompatActivity {
     private class LocationListenner implements BDLocationListener {
         public void onReceiveLocation(BDLocation location) {
             city_locating_progress.setVisibility(View.GONE);
-
+            Log.d("LOACTION", location.getCity());
             if (location != null) {
 
                 if (location.getCity() != null
@@ -207,7 +215,6 @@ public class Finder extends AppCompatActivity {
                     city_locating_progress.setVisibility(View.GONE);
                     city_locate_success_img.setVisibility(View.VISIBLE);
                     city_locate_state.setText(location.getCity());
-
                 } else {
                     city_locating_state.setVisibility(View.GONE);
                     city_locate_failed.setVisibility(View.VISIBLE);
@@ -217,6 +224,7 @@ public class Finder extends AppCompatActivity {
                 city_locating_state.setVisibility(View.GONE);
                 city_locate_failed.setVisibility(View.VISIBLE);
             }
+//            Toast.makeText(Finder.this, location.getCity(), Toast.LENGTH_SHORT).show();
 
         }
     }
