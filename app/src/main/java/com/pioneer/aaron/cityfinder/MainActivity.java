@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.pioneer.aaron.cityfinder.Finder.Finder;
+import com.pioneer.aaron.cityfinder.finder.Finder;
 
 public class MainActivity extends AppCompatActivity {
     TextView location_text;
