@@ -1,7 +1,9 @@
 package com.pioneer.aaron.cityfinder.finder;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -35,7 +37,6 @@ public class Finder extends AppCompatActivity {
     private BaseAdapter adapter;
     private ListView mCityLit;
     private TextView overlay, citysearch;
-    private ImageButton backbutton;
     private MyLetterListView letterListView;
     private HashMap<String, Integer> alphaIndexer;
     private String[] sections;
@@ -61,9 +62,12 @@ public class Finder extends AppCompatActivity {
         LayoutInflater localLayoutInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         View city_layout = localLayoutInflater.inflate(R.layout.public_cityhot, null);
         setContentView(city_layout);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         citysearch = (TextView) city_layout.findViewById(R.id.city_search_edittext);
-        backbutton = (ImageButton) city_layout.findViewById(R.id.title_left_btn);
         mCityLit = (ListView) city_layout.findViewById(R.id.public_allcity_list);
         letterListView = (MyLetterListView) city_layout.findViewById(R.id.cityLetterListView);
 
@@ -129,12 +133,6 @@ public class Finder extends AppCompatActivity {
         initOverlay();
         setAdapter(mCityNames);
         mCityLit.setOnItemClickListener(new CityListOnItemClick());
-        backbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
         //manually input abbreviation to search
         /*citysearch.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -414,5 +412,21 @@ public class Finder extends AppCompatActivity {
             overlay.setVisibility(View.GONE);
         }
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

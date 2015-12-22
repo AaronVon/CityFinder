@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
@@ -14,7 +15,7 @@ import com.pioneer.aaron.cityfinder.finder.Finder;
 
 public class MainActivity extends AppCompatActivity {
     TextView location_text;
-
+    ImageButton locationButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,11 +25,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         location_text = (TextView) findViewById(R.id.home_location_text);
-        location_text.setOnClickListener(new View.OnClickListener() {
+        locationButton = (ImageButton) findViewById(R.id.btn_locate);
+        locationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, Finder.class);
                 startActivityForResult(intent, 1);
+
             }
         });
     }
