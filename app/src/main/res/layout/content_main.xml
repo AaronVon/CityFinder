@@ -18,8 +18,9 @@
         android:layout_alignParentStart="true" />
     <TextView
         android:id="@+id/pinyinsearch"
+        android:text="pinyinsearch"
         android:textSize="20sp"
-        android:layout_alignBottom="@+id/home_location_text"
+        android:layout_below="@+id/home_location_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </RelativeLayout>

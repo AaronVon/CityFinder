@@ -7,10 +7,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.baidu.location.BDLocation;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
-import com.baidu.location.LocationClientOption;
 import com.pioneer.aaron.cityfinder.activities.PinyinSearch;
 import com.pioneer.aaron.cityfinder.finder.Finder;
 
