@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import com.pioneer.aaron.cityfinder.activities.PinyinSearch;
 import com.pioneer.aaron.cityfinder.adapter.HotCityGridAdapter;
 import com.pioneer.aaron.cityfinder.R;
 
@@ -134,16 +135,15 @@ public class Finder extends AppCompatActivity {
         setAdapter(mCityNames);
         mCityLit.setOnItemClickListener(new CityListOnItemClick());
         //manually input abbreviation to search
-        /*citysearch.setOnTouchListener(new View.OnTouchListener() {
+        citysearch.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                boolean startLoad = ContactsHelper.getInstance().startLoadContacts();
 
-                Intent intent = new Intent(Finder.this, searchactivity.class);
+                Intent intent = new Intent(Finder.this, PinyinSearch.class);
                 startActivityForResult(intent, 2);
                 return false;
             }
-        });*/
+        });
 
 
     }

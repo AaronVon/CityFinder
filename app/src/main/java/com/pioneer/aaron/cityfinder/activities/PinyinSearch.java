@@ -1,5 +1,8 @@
 package com.pioneer.aaron.cityfinder.activities;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.pioneer.aaron.cityfinder.R;
+import com.pioneer.aaron.cityfinder.finder.DBManager;
 import com.pioneer.aaron.cityfinder.utils.PinyinUtil;
 
 import net.sourceforge.pinyin4j.PinyinHelper;
@@ -33,13 +37,19 @@ public class PinyinSearch extends AppCompatActivity {
     private ListView mListView;
     private ArrayAdapter<String> adapter;
     private List<String> mlist;
+    private List<String> temp;
+    private AsyncTask asyncTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pinyinsearch);
         setData();
-        initView();
+        try {
+            initView();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void initView() {
@@ -53,15 +63,37 @@ public class PinyinSearch extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 final String str = s.toString();
-                new Thread() {
-                    @Override
-                    public void run() {
-                        mlist = PinyinUtil.search(str);
-                        Message message = new Message();
-                        message.what = 0;
-                        mHandler.sendMessage(message);
-                    }
-                }.start();
+                try {
+                    asyncTask = new AsyncTask() {
+                        @Override
+                        protected Object doInBackground(Object[] params) {
+                            mlist = PinyinUtil.search(str);
+                            /*List<String> temp = PinyinUtil.search(str);
+                            mlist.clear();
+                            mlist = new ArrayList<String>();
+                            for (int i = 0; i < temp.size(); ++i) {
+                                mlist.add(temp.get(i));
+                            }*/
+                            /*mlist.clear();
+                            mlist.addAll(PinyinUtil.search(str));*/
+                            return null;
+                        }
+
+                        @Override
+                        protected void onPostExecute(Object o) {
+                            adapter = new ArrayAdapter<String>(PinyinSearch.this, android.R.layout.simple_list_item_1, mlist);
+                            ((ListView) findViewById(R.id.listView)).setAdapter(adapter);
+                            for (int i = 0; i < mlist.size(); ++i) {
+                                System.out.println("----" + mlist.get(i));
+                            }
+//                            adapter.notifyDataSetChanged();
+                            super.onPostExecute(o);
+                        }
+                    }.execute();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
 
             @Override
@@ -81,30 +113,16 @@ public class PinyinSearch extends AppCompatActivity {
         }
     }
 
-    Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == 0) {
-//                Log.d("handleMessage", "notifyDataSetChanged");
-                for (int i = 0; i < mlist.size(); ++i) {
-                    Log.d("----------", mlist.get(i));
-                }
-                adapter.notifyDataSetChanged();
-            }
-        }
-    };
-
     private void setData() {
         mlist = new ArrayList<>();
-        mlist.add("安徽");
-        mlist.add("王小二");
-        mlist.add("Android将军");
-        mlist.add("天津大麻花");
-        mlist.add("马场道");
-        mlist.add("海河湾");
-        mlist.add("五大道");
-        mlist.add("苏州道");
-        mlist.add("爱国道");
-        mlist.add("天津图书大厦");
+        SQLiteDatabase database = SQLiteDatabase.openOrCreateDatabase(DBManager.DB_PATH + "/" + DBManager.DB_NAME, null);
+
+        Cursor cursor = database.rawQuery("select * from T_City order by NameSort", null);
+        for (int i = 0; i < cursor.getCount(); ++i) {
+            cursor.moveToPosition(i);
+            mlist.add(cursor.getString(cursor.getColumnIndex("CityName")));
+        }
+        cursor.close();
+        database.close();
     }
 }

@@ -46,7 +46,7 @@ public class PinyinUtil {
      * */
     public static String getSimple(String str) {
         StringBuilder stringBuilder = new StringBuilder();
-        String tempSimple = "";
+        String tempSimple = null;
         for (int i = 0; i < str.length(); ++i) {
             tempSimple = getCharacterSimple(str.charAt(i));
             if (null == tempSimple) {
@@ -78,7 +78,7 @@ public class PinyinUtil {
 
     public static String getComplex(String str) {
         StringBuilder stringBuilder = new StringBuilder();
-        String tempComplex = "";
+        String tempComplex = null;
         for (int i = 0; i < str.length(); ++i) {
             tempComplex = getCharacterComplex(str.charAt(i));
             if (null == tempComplex) {
@@ -106,6 +106,7 @@ public class PinyinUtil {
 
     public static List<String> search(String str) {
         List<String> temp = new ArrayList<>();
+
         for (int i = 0; i < list.size(); ++i) {
             if (list.get(i).get(strList.get(i)).get("complex").contains(str) ||
                     list.get(i).get(strList.get(i)).get("simple").contains(str)) {

@@ -3,14 +3,27 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/search_field"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputLayout style="@style/TextInputStyle">
+            <EditText
+                android:id="@+id/search_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textSize="24sp"
+                android:lines="1"
+                android:hint="输入查询" />
+
+        </android.support.design.widget.TextInputLayout>
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/listView"
+        android:paddingRight="@dimen/dimen_16px"
+        android:paddingLeft="@dimen/dimen_16px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal" />
