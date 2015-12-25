@@ -1,5 +1,6 @@
 package com.pioneer.aaron.cityfinder.activities;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
@@ -12,6 +13,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
@@ -20,6 +22,7 @@ import android.widget.TextView;
 
 import com.pioneer.aaron.cityfinder.R;
 import com.pioneer.aaron.cityfinder.finder.DBManager;
+import com.pioneer.aaron.cityfinder.finder.Setting;
 import com.pioneer.aaron.cityfinder.utils.PinyinUtil;
 
 import net.sourceforge.pinyin4j.PinyinHelper;
@@ -82,7 +85,7 @@ public class PinyinSearch extends AppCompatActivity {
                         @Override
                         protected void onPostExecute(Object o) {
                             adapter = new ArrayAdapter<String>(PinyinSearch.this, android.R.layout.simple_list_item_1, mlist);
-                            ((ListView) findViewById(R.id.listView)).setAdapter(adapter);
+                            mListView.setAdapter(adapter);
                             for (int i = 0; i < mlist.size(); ++i) {
                                 System.out.println("----" + mlist.get(i));
                             }
@@ -104,6 +107,19 @@ public class PinyinSearch extends AppCompatActivity {
 
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mlist);
         mListView = (ListView) findViewById(R.id.listView);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String str = mlist.get(position);
+                if (null != str) {
+                    Setting.Save2SharedPreferences(PinyinSearch.this, "city", str);
+                    Intent intent = new Intent();
+                    intent.putExtra("city", str);
+                    setResult(2, intent);
+                    finish();
+                }
+            }
+        });
         mListView.setAdapter(adapter);
 
         try {
@@ -125,4 +141,5 @@ public class PinyinSearch extends AppCompatActivity {
         cursor.close();
         database.close();
     }
+
 }

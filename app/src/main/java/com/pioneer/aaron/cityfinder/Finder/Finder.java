@@ -54,7 +54,7 @@ public class Finder extends AppCompatActivity {
 
     View hotcityall;
 
-    String[] hotcity = new String[]{"北京", "上海", "广州", "深圳", "杭州", "南京", "天津", "武汉", "重庆"};
+    String[] hotcity = new String[]{"北京", "上海", "广州", "深圳", "杭州", "南京", "成都", "武汉", "重庆"};
     WindowManager windowManager;
 
     @Override
@@ -112,7 +112,7 @@ public class Finder extends AppCompatActivity {
                         cityModel);
                 Intent intent =new Intent();
                 intent.putExtra("city",cityModel);
-                setResult(2,intent);
+                setResult(2, intent);
                 finish();
             }
         });
@@ -126,8 +126,7 @@ public class Finder extends AppCompatActivity {
                 + DBManager.DB_NAME, null);
         mCityNames = getCityNames();
         database.close();
-        letterListView
-                .setOnTouchingLetterChangedListener(new LetterListViewListener());
+        letterListView.setOnTouchingLetterChangedListener(new LetterListViewListener());
         alphaIndexer = new HashMap<String, Integer>();
         handler = new Handler();
         overlayThread = new OverlayThread();
@@ -140,7 +139,7 @@ public class Finder extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
 
                 Intent intent = new Intent(Finder.this, PinyinSearch.class);
-                startActivityForResult(intent, 2);
+                startActivityForResult(intent, 1);
                 return false;
             }
         });
@@ -151,11 +150,11 @@ public class Finder extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (resultCode) {
-            case RESULT_OK:
-                String city=data.getStringExtra("city");
-                Intent intent =new Intent();
-                intent.putExtra("city",city);
-                setResult(2,intent);
+            case 2:
+                String city = data.getStringExtra("city");
+                Intent intent = new Intent();
+                intent.putExtra("city", city);
+                setResult(2, intent);
                 finish();
                 break;
 
