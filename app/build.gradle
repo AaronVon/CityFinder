@@ -30,5 +30,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.android.support:design:22.2.1'
     compile files('libs/pinyin4j-2.5.0.jar')
+    compile files('libs/butterknife-7.0.1.jar')
 }
 
