@@ -7,8 +7,10 @@
                     android:layout_marginLeft="@dimen/city_search_margin_landr_dimen" android:layout_marginTop="6.0dip"
                     android:layout_marginRight="@dimen/city_search_margin_landr_dimen"
                     android:layout_marginBottom="6.0dip">
-        <ImageView android:id="@+id/search_check" android:layout_width="wrap_content"
-                   android:layout_height="wrap_content" android:layout_marginLeft="9.0dip"
+        <ImageView android:id="@+id/search_check"
+            android:scaleType="fitXY"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_marginLeft="9.0dip"
                    android:src="@drawable/wb_letter_search_normal" android:layout_alignParentLeft="true"
                    android:layout_centerVertical="true"/>
         <TextView android:textSize="12.0sp" android:textColor="#ff94989d" android:gravity="center_vertical"

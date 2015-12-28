@@ -31,14 +31,25 @@ import com.pioneer.aaron.cityfinder.activities.PinyinSearch;
 import com.pioneer.aaron.cityfinder.adapter.HotCityGridAdapter;
 import com.pioneer.aaron.cityfinder.R;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by Aaron on 12/22/15.
  */
 public class Finder extends AppCompatActivity {
+
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+    @Bind(R.id.public_allcity_list)
+    ListView mCityLit;
+    @Bind(R.id.city_search_edittext)
+    TextView citysearch;
+    @Bind(R.id.cityLetterListView)
+    MyLetterListView letterListView;
+
     private BaseAdapter adapter;
-    private ListView mCityLit;
-    private TextView overlay, citysearch;
-    private MyLetterListView letterListView;
+    private TextView overlay;
     private HashMap<String, Integer> alphaIndexer;
     private String[] sections;
     private Handler handler;
@@ -63,16 +74,14 @@ public class Finder extends AppCompatActivity {
         LayoutInflater localLayoutInflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         View city_layout = localLayoutInflater.inflate(R.layout.public_cityhot, null);
         setContentView(city_layout);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this, city_layout);
+
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        citysearch = (TextView) city_layout.findViewById(R.id.city_search_edittext);
-        mCityLit = (ListView) city_layout.findViewById(R.id.public_allcity_list);
-        letterListView = (MyLetterListView) city_layout.findViewById(R.id.cityLetterListView);
-
         View cityhot_header_blank = localLayoutInflater.inflate(R.layout.public_cityhot_header_padding_blank, mCityLit, false);
+
         mCityLit.addHeaderView(cityhot_header_blank, null, false);
         cityhot_header_blank = localLayoutInflater.inflate(R.layout.city_locate_layout, mCityLit, false);
         city_locating_state = cityhot_header_blank.findViewById(R.id.city_locating_state);
