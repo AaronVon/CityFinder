@@ -6,9 +6,9 @@ import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 
 /**
- * 公共参数配置类
+ * public params configuration
  * 
- * @author gugalor
+ * @author Aaron
  * 
  */
 public class Setting {

@@ -1,7 +1,7 @@
 package com.pioneer.aaron.cityfinder.adapter;
 
 /**
- * Created by Administrator on 2015/6/29.
+ * Created by Aaron on 12/22/15.
  */
 import android.content.Context;
 import android.util.AttributeSet;

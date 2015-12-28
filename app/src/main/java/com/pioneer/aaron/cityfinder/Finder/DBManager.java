@@ -9,16 +9,16 @@ import com.pioneer.aaron.cityfinder.R;
 import java.io.*;
 
 /**
- * rawеlдdata
- * @author gugalor
+ * Data manage class
+ *
+ * @author Aaron
  *
  */
-public class DBManager
-{
+public class DBManager {
 	private final int BUFFER_SIZE = 400000;
 	private static final String PACKAGE_NAME = "com.pioneer.aaron.cityfinder";
 	public static final String DB_NAME = "china_city_name.db";
-	public static final String DB_PATH = "/data" + Environment.getDataDirectory().getAbsolutePath() + "/" + PACKAGE_NAME ; // ·
+	public static final String DB_PATH = "/data" + Environment.getDataDirectory().getAbsolutePath() + "/" + PACKAGE_NAME ;
 	private Context mContext;
 	private SQLiteDatabase database;
 
@@ -28,20 +28,18 @@ public class DBManager
 	}
 
 	/**
-	 * ÷
+	 * open data base
 	 */
-	public void openDateBase()
-	{
+	public void openDateBase() {
 		this.database = this.openDateBase(DB_PATH + "/" + DB_NAME);
 
 	}
 
 	/**
 	 * 
-	 * 
 	 * @param dbFile
 	 * @return SQLiteDatabase
-	 * @author gugalor
+	 * @author Aaron
 	 */
 	private SQLiteDatabase openDateBase(String dbFile)
 	{

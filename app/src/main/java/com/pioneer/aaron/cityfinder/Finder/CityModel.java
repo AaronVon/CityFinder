@@ -1,14 +1,15 @@
 package com.pioneer.aaron.cityfinder.finder;
 
 /**
- * 城市属性实体类
- * @author gugalor
+ * City properties entity class
+ *
+ * @author Aaron
  *
  */
-public class CityModel
-{
-	private String CityName; //城市名字
-	private String NameSort; //城市首字母
+public class CityModel {
+
+	private String CityName; //full city name
+	private String NameSort; //first letter of city in Pinyin
 
 	public String getCityName()
 	{

@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.pioneer.aaron.cityfinder.activities.PinyinSearch;
 import com.pioneer.aaron.cityfinder.finder.Finder;
+import com.pioneer.aaron.cityfinder.finder.Setting;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         })
                         .show();
-                
+
                 break;
         }
     }
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         ButterKnife.bind(this);
+        location_text.setText(Setting.LoadFromSharedPreferences(this, "city"));
     }
 
     @Override

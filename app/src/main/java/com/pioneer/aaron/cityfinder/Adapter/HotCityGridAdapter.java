@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2015/6/29.
+ * Created by Aaron on 12/22/15.
  */
 
 public final class HotCityGridAdapter extends BaseAdapter

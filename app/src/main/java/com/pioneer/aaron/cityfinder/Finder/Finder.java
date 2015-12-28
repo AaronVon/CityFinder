@@ -164,7 +164,7 @@ public class Finder extends AppCompatActivity {
     }
 
     /**
-     * 获取位置
+     * get location
      */
     public void loadLocation() {
 
@@ -173,6 +173,8 @@ public class Finder extends AppCompatActivity {
         city_locating_progress.setVisibility(View.VISIBLE);
         city_locate_success_img.setVisibility(View.GONE);
         city_locate_state.setText(getString(R.string.locating));
+
+        // init locationclient and set its options
         if (locationClient == null) {
             locationClient = new LocationClient(Finder.this);
             locationClient.registerLocationListener(new LocationListenner());
@@ -196,12 +198,12 @@ public class Finder extends AppCompatActivity {
     }
 
     /**
-     * 监听函数，又新位置的时候，格式化成字符串，输出到屏幕中
+     * Listen on location change and put it in view if changed
      */
     private class LocationListenner implements BDLocationListener {
         public void onReceiveLocation(BDLocation location) {
             city_locating_progress.setVisibility(View.GONE);
-            Log.d("LOACTION", location.getCity());
+//            Log.d("LOACTION", location.getCity());
             if (location != null) {
 
                 if (location.getCity() != null
@@ -217,11 +219,10 @@ public class Finder extends AppCompatActivity {
                     city_locate_failed.setVisibility(View.VISIBLE);
                 }
             } else {
-                // 定位失败
+                // failed on locating
                 city_locating_state.setVisibility(View.GONE);
                 city_locate_failed.setVisibility(View.VISIBLE);
             }
-//            Toast.makeText(Finder.this, location.getCity(), Toast.LENGTH_SHORT).show();
 
         }
     }
@@ -246,11 +247,6 @@ public class Finder extends AppCompatActivity {
         return names;
     }
 
-    /**
-     * б 1/4
-     *
-     * @author
-     */
     class CityListOnItemClick implements OnItemClickListener {
 
         @Override
@@ -365,7 +361,7 @@ public class Finder extends AppCompatActivity {
 
     }
 
-    // ’
+    //
     private void initOverlay() {
         LayoutInflater inflater = LayoutInflater.from(this);
         overlay = (TextView) inflater.inflate(R.layout.overlay, null);
@@ -380,11 +376,10 @@ public class Finder extends AppCompatActivity {
                 .getSystemService(Context.WINDOW_SERVICE);
         windowManager.addView(overlay, lp);
     }
-    @Override
-    protected void onDestroy() {
-        windowManager.removeView(overlay);
-        super.onDestroy();
-    }
+
+    /**
+     * Listen touch event and display the enlarged letter on screen
+     * */
     private class LetterListViewListener implements
             MyLetterListView.OnTouchingLetterChangedListener {
 
@@ -427,5 +422,11 @@ public class Finder extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        windowManager.removeView(overlay);
+        super.onDestroy();
     }
 }
